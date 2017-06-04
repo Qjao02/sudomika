@@ -25,7 +25,7 @@ public class Grafo {
 		
 		while(verticeAtual != this.nVertices){
 			for(i = 0 ; i < this.nArestas ; i++){
-				this.matriz[i][j] = 
+				this.matriz[i][verticeAtual] =  
 			}
 		}
 		
