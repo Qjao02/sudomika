@@ -2,12 +2,27 @@
 public class Vertices {
 	private int numeroVertice;
 	private int conteudoDoVertice;
-
+	private boolean fixo;
 
 	public Vertices(int cont) {
 		this.numeroVertice = cont;
 		this.conteudoDoVertice = 1;
+		this.setFixo(false);
 	}
+	
+	
+
+	public boolean isFixo() {
+		return fixo;
+	}
+
+
+
+	public void setFixo(boolean fixo) {
+		this.fixo = fixo;
+	}
+
+
 
 	public void imprimirVertices() {
 
@@ -29,10 +44,5 @@ public class Vertices {
 	public void setConteudoDoVertice(int conteudoDoVertice) {
 		this.conteudoDoVertice = conteudoDoVertice;
 	}
-
-	
-	
-
-	
 
 }
