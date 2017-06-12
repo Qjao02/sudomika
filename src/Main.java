@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
@@ -79,10 +80,10 @@ public class Main {
 	public static void leitura(int linhaSize, int colunaSize, Vertices[][] matriz) {
 		Scanner ler = new Scanner(System.in);
 		String linha;
-		//System.out.printf("Informe o nome de arquivo texto:\n");
+		// System.out.printf("Informe o nome de arquivo texto:\n");
 		String nome = "sudoku.txt";
 		char[] letras;
-		System.out.printf("\nConteúdo do arquivo texto:\n");
+		System.out.printf("\n Conteudo do arquivo texto:\n");
 		try {
 			FileReader arq = new FileReader(nome);
 			BufferedReader lerArq = new BufferedReader(arq);
@@ -92,15 +93,15 @@ public class Main {
 			// de repetição atingir o final do arquivo texto
 			letras = linha.toCharArray();
 			int a = 0;
-			for(int i = 0 ; i < letras.length ; i++){
+			for (int i = 0; i < letras.length; i++) {
 				System.out.print(letras[a]);
 			}
 
-			///ystem.out.println(linha);
+			/// ystem.out.println(linha);
 			for (int i = 0; i < linhaSize; i++) {
 				for (int j = 0; j < colunaSize; j++) {
 					matriz[i][j].setConteudoDoVertice(Character.getNumericValue(letras[a]));
-					if(Character.getNumericValue(letras[a])>= 0 ){
+					if (Character.getNumericValue(letras[a]) >= 0) {
 						matriz[i][j].setFixo(true);
 					}
 					a++;
@@ -129,14 +130,20 @@ public class Main {
 		leitura(linha, linha, matrizLeitura);
 		Vertices[][] matrizNew = new Vertices[m][linha];
 		alocaMatriz(m, linha, matrizNew);
-		//imprimirMatrizSudoku(linha, linha, matrizLeitura);
+		// imprimirMatrizSudoku(linha, linha, matrizLeitura);
 		System.out.println("");
 		trataMatriz(m, linha, matrizLeitura, matrizNew);
-		//imprimirMatrizSudoku(m, linha, matrizNew);
+		// imprimirMatrizSudoku(m, linha, matrizNew);
 		grafo.imprimirGrafo();
 		grafo.grafoPreencher(linha, matrizNew);
-		 grafo.imprimirGrafo();
+		grafo.imprimirGrafo();
 
+		ArrayList<Integer> a = grafo.findACandidate(0, 0);
+		
+		System.out.print(a);
+		
+		
+		
 		lerTeclado.close();
 
 	}
