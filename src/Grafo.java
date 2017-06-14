@@ -46,69 +46,80 @@ public class Grafo {
 		}
 	}
 
-	public ArrayList<Vertices> linearizarMatriz() {
-		ArrayList<Vertices> matrizLinearizada = new ArrayList<Vertices>();
-		for (int i = 0; i < this.nArestas; i++) {
-			for (int j = 0; j < this.nVertices; j++) {
-				matrizLinearizada.add(this.matriz[i][j]);
-			}
+	public void AutoSolveBackTracking(int i, Vertices[] cores) {
+		ArrayList<Integer> candidates;
+		if (!cores[i].isFixo()) {
+
+			 candidates = this.findCandidates(i);
+			cores[i].setConteudoDoVertice(candidates.get(0));
+			this.addCandidates(candidates.get(0), i);
+			this.bt(i + 1, cores,candidates);
+
+		} else {
+			i++;
 		}
 
-		return matrizLinearizada;
 	}
 
-	public boolean autoSolveBackTracking(int i , int vertice){
-		int aux;
-		ArrayList<Integer> candidates = this.findACandidate(vertice);
-		if(candidates.size() != 0){
-			 aux = candidates.get(0);
-			this.addSolution(vertice, aux);
-			this.removeFromCandidates(candidates,aux);
-			moveNext
-		}else{
-			
+	public boolean bt(int i, Vertices[] cores,ArrayList<Integer> candidates) {
+
+		if (i == this.nVertices + 1) {
+			return true;
+		} else {
+
+			candidates = this.findCandidates(i);
+			if (candidates.size() > 0) {
+				this.addCandidates(candidates.get(0), i);
+				if (!(bt(this.proxColorValidate(i, cores), cores,candidates))) {
+					for (int aux = 1; aux < candidates.size(); aux++) {
+						this.addCandidates(candidates.get(aux), i);
+						if (bt(this.proxColorValidate(i, cores), cores,candidates)) {
+							break;
+
+						} else {
+							return false;
+						}
+					}
+				}
+
+			} else {
+				return false;
+			}
+
 		}
-		
-		
-	
-		
 		return true;
 	}
 
-	public ArrayList<Integer> findACandidate(int coluna) {
-		int cont = 1;
-		ArrayList<Integer> candidates = new ArrayList<>();
-		for (int i = 0; i < this.tamanhoDoQuadrante; i++) {
-			candidates.add(cont++);
-		}
-		System.out.println(candidates);
+	public int proxColorValidate(int i, Vertices[] cores) {
+		while (cores[i].isFixo())
+			i++;
+
+		return i;
+	}
+
+	public void addCandidates(int candidate, int vertice) {
 		for (int i = 0; i < this.nArestas; i++) {
-			if (this.matriz[i][coluna].getConteudoDoVertice() != -1) {
-				for (int k = 0; k < nVertices; k++) {
-					candidates.remove(this.matriz[i][k].getConteudoDoVertice());
+			if (this.matriz[i][vertice].getConteudoDoVertice() != -1) {
+				this.matriz[i][vertice].setConteudoDoVertice(candidate);
+			}
+		}
+	}
+
+	public ArrayList<Integer> findCandidates(int vertice) {
+		ArrayList<Integer> candidates = new ArrayList<Integer>();
+		for (int i = 0; i < this.nArestas; i++) {
+			if (this.matriz[i][vertice].getConteudoDoVertice() != -1) {
+				for (int j = 0; j < this.nArestas; j++) {
+					if (this.matriz[i][j].getConteudoDoVertice() != 0
+							&& this.matriz[i][j].getConteudoDoVertice() != -1) {
+						candidates.add(this.matriz[i][j].getConteudoDoVertice());
+					}
 				}
+
 			}
 		}
+
 		return candidates;
-	}
-
-	public void addSolution(int vertice, Integer k) {
-		for (int i = 0; i < this.nArestas; i++) {
-			this.matriz[i][vertice].setConteudoDoVertice(k);
-		}
-	}
-
-	public void removeFromCandidates(ArrayList<Integer> candidates, int remover) {
-		int index = 0;
-		for (int a : candidates) {
-			if (a == remover) {
-				candidates.remove(index);
-
-			} else {
-				index++;
-			}
-		}
-
 	}
 
 }

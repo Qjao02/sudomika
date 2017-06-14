@@ -58,7 +58,7 @@ public class Main {
 		System.out.println("imprimir matriz");
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < m; j++) {
-				System.out.print(" " + matrizLeitura[i][j].getNumeroVertice());
+				System.out.print(" " + matrizLeitura[i][j].isFixo());
 			}
 			System.out.println();
 		}
@@ -77,7 +77,7 @@ public class Main {
 		}
 	}
 
-	public static void leitura(int linhaSize, int colunaSize, Vertices[][] matriz) {
+	public static void leitura(int linhaSize, int colunaSize, Vertices[][] matriz, Vertices[] cores) {
 		Scanner ler = new Scanner(System.in);
 		String linha;
 		// System.out.printf("Informe o nome de arquivo texto:\n");
@@ -101,9 +101,11 @@ public class Main {
 			for (int i = 0; i < linhaSize; i++) {
 				for (int j = 0; j < colunaSize; j++) {
 					matriz[i][j].setConteudoDoVertice(Character.getNumericValue(letras[a]));
-					if (Character.getNumericValue(letras[a]) >= 0) {
+					if (Character.getNumericValue(letras[a]) > 0) {
 						matriz[i][j].setFixo(true);
+				
 					}
+					cores[a] = matriz[i][j];
 					a++;
 				}
 			}
@@ -127,21 +129,20 @@ public class Main {
 		// grafo.imprimirGrafo();
 		Vertices[][] matrizLeitura = new Vertices[linha][linha];
 		alocaMatriz(linha, linha, matrizLeitura);
-		leitura(linha, linha, matrizLeitura);
+		Vertices[] cores = new Vertices[linha * linha];
+		leitura(linha, linha, matrizLeitura,cores);
 		Vertices[][] matrizNew = new Vertices[m][linha];
 		alocaMatriz(m, linha, matrizNew);
-		// imprimirMatrizSudoku(linha, linha, matrizLeitura);
+		 imprimirMatrizSudoku(linha, linha, matrizLeitura);
 		System.out.println("");
 		trataMatriz(m, linha, matrizLeitura, matrizNew);
 		// imprimirMatrizSudoku(m, linha, matrizNew);
-		grafo.imprimirGrafo();
+		//grafo.imprimirGrafo();
 		grafo.grafoPreencher(linha, matrizNew);
-		grafo.imprimirGrafo();
-
-		ArrayList<Integer> a = grafo.findACandidate(0, 0);
-		
-		System.out.print(a);
-		
+		//grafo.imprimirGrafo();
+		grafo.AutoSolveBackTracking(0, cores);
+		for(Vertices v:cores)
+			System.out.print(v.isFixo());
 		
 		
 		lerTeclado.close();
