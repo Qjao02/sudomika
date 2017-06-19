@@ -6,7 +6,7 @@ public class Vertices {
 
 	public Vertices(int cont) {
 		this.numeroVertice = cont;
-		this.conteudoDoVertice = 1;
+		this.conteudoDoVertice = 0;
 		this.setFixo(false);
 	}
 	

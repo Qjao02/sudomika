@@ -46,80 +46,128 @@ public class Grafo {
 		}
 	}
 
-	public void AutoSolveBackTracking(int i, Vertices[] cores) {
-		ArrayList<Integer> candidates;
-		if (!cores[i].isFixo()) {
+	public void printCores(Vertices[] cores) {
 
-			 candidates = this.findCandidates(i);
-			cores[i].setConteudoDoVertice(candidates.get(0));
-			this.addCandidates(candidates.get(0), i);
-			this.bt(i + 1, cores,candidates);
+		for (int i = 0; i < this.nVertices; i++) {
+			System.out.print(" " + cores[i].getConteudoDoVertice());
 
-		} else {
-			i++;
 		}
+		System.out.println();
 
 	}
 
-	public boolean bt(int i, Vertices[] cores,ArrayList<Integer> candidates) {
+	public boolean AutoSolveBackTracking(boolean acabou, int i, Vertices[] cores) {
+		// System.out.println("executando funcao");
 
-		if (i == this.nVertices + 1) {
-			return true;
-		} else {
+		do {
 
-			candidates = this.findCandidates(i);
-			if (candidates.size() > 0) {
-				this.addCandidates(candidates.get(0), i);
-				if (!(bt(this.proxColorValidate(i, cores), cores,candidates))) {
-					for (int aux = 1; aux < candidates.size(); aux++) {
-						this.addCandidates(candidates.get(aux), i);
-						if (bt(this.proxColorValidate(i, cores), cores,candidates)) {
+			cores[i].setConteudoDoVertice(candidatesColorNode(i, cores));
+			if (cores[i].getConteudoDoVertice() == 0) {
+				return false;
+			}
+			if ((this.nVertices - 1) == i) {
+				this.printCores(cores);
+				return true;
+
+			} else {
+				//if (!cores[i + 1].isFixo()) {
+					acabou = AutoSolveBackTracking(acabou, i + 1, cores);
+					if (acabou) {
+						return true;
+					}
+				/*} else {
+					System.out.println("não chamou o i+1");
+					int prox = proxValidVertice(i + 1, cores);
+					i = prox;
+					System.out.println(prox);
+					acabou = AutoSolveBackTracking(acabou, i, cores);
+					if (acabou) {
+						return true;
+					}
+				}
+				*/
+
+			}
+		} while (true);
+	}
+
+	public int proxValidVertice(int i, Vertices[] cores) {
+		int jump = i;
+		while (cores[jump].isFixo())
+			jump++;
+
+		return jump;
+	}
+
+	public int candidatesColorNode(int i, Vertices[] cores) {
+
+		int coluna, linha;
+		do {
+			int altera = 0;
+			// System.out.println("executando prox validate");
+
+			cores[i].setConteudoDoVertice(((cores[i].getConteudoDoVertice() + 1) % (this.tamanhoDoQuadrante + 1)));
+			// System.out.println(cores[i].getConteudoDoVertice());
+			if (cores[i].getConteudoDoVertice() == 0)
+				return 0;
+			for (linha = 0; linha < this.nArestas; linha++) {
+				if (this.matriz[linha][i].getConteudoDoVertice() != -1) {
+					// System.out.println("é igual em " + linha);
+					for (coluna = 0; coluna < this.nVertices; coluna++) {
+						if (this.matriz[linha][coluna].getConteudoDoVertice() != -1
+								&& cores[i].getConteudoDoVertice() == cores[coluna].getConteudoDoVertice()
+								&& i != coluna) {
+							altera = 1;
+							// System.out.println(altera);
 							break;
-
-						} else {
-							return false;
 						}
 					}
 				}
-
-			} else {
-				return false;
 			}
-
-		}
-		return true;
-	}
-
-	public int proxColorValidate(int i, Vertices[] cores) {
-		while (cores[i].isFixo())
-			i++;
-
-		return i;
-	}
-
-	public void addCandidates(int candidate, int vertice) {
-		for (int i = 0; i < this.nArestas; i++) {
-			if (this.matriz[i][vertice].getConteudoDoVertice() != -1) {
-				this.matriz[i][vertice].setConteudoDoVertice(candidate);
+			if (altera == 0 && cores[i].getConteudoDoVertice() != 0) {
+				return cores[i].getConteudoDoVertice();
 			}
-		}
+		} while (true);
 	}
 
-	public ArrayList<Integer> findCandidates(int vertice) {
-		ArrayList<Integer> candidates = new ArrayList<Integer>();
-		for (int i = 0; i < this.nArestas; i++) {
-			if (this.matriz[i][vertice].getConteudoDoVertice() != -1) {
-				for (int j = 0; j < this.nArestas; j++) {
-					if (this.matriz[i][j].getConteudoDoVertice() != 0
-							&& this.matriz[i][j].getConteudoDoVertice() != -1) {
-						candidates.add(this.matriz[i][j].getConteudoDoVertice());
-					}
-				}
-
-			}
-		}
-
-		return candidates;
-	}
-
+	/*
+	 * public boolean bt(int i, Vertices[] cores,ArrayList<Integer> candidates)
+	 * {
+	 * 
+	 * if (i == this.nVertices + 1) { return true; } else {
+	 * 
+	 * this.findCandidates(i,candidates); //if (candidates.size() > 0) { //
+	 * this.addChiandidates(candidates.get(0), i); if
+	 * (!(bt(this.proxColorValidate(i, cores), cores,candidates))) { for (int
+	 * aux = 1; aux < candidates.size() ; aux++) {
+	 * this.addCandidates(candidates.get(aux), i); if
+	 * (bt(this.proxColorValidate(i, cores), cores,candidates)) { break;
+	 * 
+	 * } else { return false; } } }
+	 * 
+	 * } else { return false; }
+	 * 
+	 * } return true; }
+	 * 
+	 * public int proxColorValidate(int i, Vertices[] cores) { while
+	 * (cores[i].isFixo()) i++;
+	 * 
+	 * return i; }
+	 * 
+	 * public void addCandidates(int candidate, int vertice) { for (int i = 0; i
+	 * < this.nArestas; i++) { if
+	 * (this.matriz[i][vertice].getConteudoDoVertice() != -1) {
+	 * this.matriz[i][vertice].setConteudoDoVertice(candidate); } } }
+	 * 
+	 * public void findCandidates(int vertice, ArrayList<Integer> candidates) {
+	 * for (int i = 0; i < this.nArestas; i++) { if
+	 * (this.matriz[i][vertice].getConteudoDoVertice() != -1) { for (int j = 0;
+	 * j < this.nArestas; j++) { if (this.matriz[i][j].getConteudoDoVertice() !=
+	 * 0 && this.matriz[i][j].getConteudoDoVertice() != -1) {
+	 * candidates.add(this.matriz[i][j].getConteudoDoVertice()); } }
+	 * 
+	 * } }
+	 * 
+	 * }
+	 */
 }

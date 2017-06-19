@@ -22,7 +22,10 @@ public class Main {
 			for (i = inicioL; i < tamanhoQuadrante + inicioL; i++) {
 
 				for (j = inicioC; j < tamanhoQuadrante + inicioC; j++) {
-					matrizTratada[k][l] = matrizLeitura[i][j];
+					matrizTratada[k][l].setConteudoDoVertice(matrizLeitura[i][j].getConteudoDoVertice());
+					matrizTratada[k][l].setNumeroVertice(matrizLeitura[i][j].getNumeroVertice());
+					matrizTratada[k][l].setFixo(matrizLeitura[i][j].isFixo());
+
 					l++;
 				}
 			}
@@ -68,8 +71,14 @@ public class Main {
 		int i = 0;
 		for (i = 0; i < linha; i++) {
 			for (int j = 0; j < linha; j++) {
-				matrizTratada[i][j] = matrizLeitura[i][j];
-				matrizTratada[i + linha][j] = matrizLeitura[j][i];
+				matrizTratada[i][j].setConteudoDoVertice(matrizLeitura[i][j].getConteudoDoVertice());
+				matrizTratada[i][j].setNumeroVertice(matrizLeitura[i][j].getNumeroVertice());
+				matrizTratada[i][j].setFixo(matrizLeitura[i][j].isFixo());
+
+				matrizTratada[i + linha][j].setConteudoDoVertice(matrizLeitura[j][i].getConteudoDoVertice());
+				matrizTratada[i + linha][j].setNumeroVertice(matrizLeitura[j][i].getNumeroVertice());
+				matrizTratada[i + linha][j].setFixo(matrizLeitura[j][i].isFixo());
+
 			}
 
 			percorre(linha, matrizLeitura, matrizTratada);
@@ -103,9 +112,11 @@ public class Main {
 					matriz[i][j].setConteudoDoVertice(Character.getNumericValue(letras[a]));
 					if (Character.getNumericValue(letras[a]) > 0) {
 						matriz[i][j].setFixo(true);
-				
+
 					}
-					cores[a] = matriz[i][j];
+					cores[a].setConteudoDoVertice(matriz[i][j].getConteudoDoVertice());
+					cores[a].setFixo(matriz[i][j].isFixo());
+
 					a++;
 				}
 			}
@@ -119,6 +130,11 @@ public class Main {
 
 	}
 
+	public static void alocaVetorDeCores(int numeroDeVertices, Vertices[] cores) {
+		for (int i = 0; i < numeroDeVertices; i++)
+			cores[i] = new Vertices(i + 1);
+	}
+
 	public static void main(String[] args) {
 		Scanner lerTeclado = new Scanner(System.in);
 		int linha = lerTeclado.nextInt();
@@ -130,21 +146,28 @@ public class Main {
 		Vertices[][] matrizLeitura = new Vertices[linha][linha];
 		alocaMatriz(linha, linha, matrizLeitura);
 		Vertices[] cores = new Vertices[linha * linha];
-		leitura(linha, linha, matrizLeitura,cores);
+		alocaVetorDeCores(linha * linha, cores);
+
+		leitura(linha, linha, matrizLeitura, cores);
 		Vertices[][] matrizNew = new Vertices[m][linha];
 		alocaMatriz(m, linha, matrizNew);
-		 imprimirMatrizSudoku(linha, linha, matrizLeitura);
+		imprimirMatrizSudoku(linha, linha, matrizLeitura);
 		System.out.println("");
 		trataMatriz(m, linha, matrizLeitura, matrizNew);
 		// imprimirMatrizSudoku(m, linha, matrizNew);
-		//grafo.imprimirGrafo();
+		// grafo.imprimirGrafo();
 		grafo.grafoPreencher(linha, matrizNew);
 		//grafo.imprimirGrafo();
-		grafo.AutoSolveBackTracking(0, cores);
-		for(Vertices v:cores)
-			System.out.print(v.isFixo());
 		
-		
+		System.out.println();
+		for(int i = 0 ; i < linha*linha ; i++){
+			System.out.print(" " +cores[i].getConteudoDoVertice());
+		}
+		System.out.println();
+		grafo.AutoSolveBackTracking(true,0, cores);
+		for(int i = 0 ; i < linha*linha ; i++){
+			System.out.print(" " +cores[i].getConteudoDoVertice());
+		}
 		lerTeclado.close();
 
 	}
