@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaceSudomika2.MainController">      
+   <children>
+      <ImageView fitHeight="670.0" fitWidth="902.0" layoutX="1.0" pickOnBounds="true">
+         <image>
+            <Image url="@qweasd.png" />
+         </image>
+      </ImageView>
+     
+     <!-- menu -->
+     
+      <MenuBar prefHeight="29.0" prefWidth="902.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      
+      <!-- menu -->
+      
+      
+      <Button fx:id="nivelSumikaButton" layoutX="681.0" layoutY="543.0" mnemonicParsing="false" onAction="#autoSolvebt" prefHeight="29.0" prefWidth="121.0" text="Nivel sumika" />
+      <Button fx:id="nivelGraduando" layoutX="681.0" layoutY="580.0" mnemonicParsing="false" onAction="#heuristicaButon" prefHeight="29.0" prefWidth="121.0" text="Nivel Graduando" />
+      <Button fx:id="finished" layoutX="705.0" layoutY="620.0" mnemonicParsing="false" onAction="#finishedAction" text="Finished" />
+      <TextField fx:id="value" layoutX="666.0" layoutY="438.0" prefHeight="26.0" prefWidth="43.0" />
+      <TextField fx:id="line" layoutX="727.0" layoutY="438.0" prefHeight="26.0" prefWidth="56.0" />
+      <TextField fx:id="column" layoutX="803.0" layoutY="438.0" prefHeight="26.0" prefWidth="50.0" />
+      <Label layoutX="670.0" layoutY="416.0" text="value" />
+      <Label layoutX="730.0" layoutY="416.0" text="line" />
+      <Label layoutX="803.0" layoutY="416.0" text="Column" />
+      <Button fx:id="tamanho9" layoutX="684.0" layoutY="371.0" mnemonicParsing="false" onAction="#inicia9" text="9x9" />
+      <Button fx:id="tamanho16" layoutX="742.0" layoutY="371.0" mnemonicParsing="false" onAction="#inicia16" text="16X16" />
+      <Button fx:id="tamanho25" layoutX="816.0" layoutY="371.0" mnemonicParsing="false" onAction="#inicia25" text="25X25" />
+      <ImageView fx:id="blocoCinza" fitHeight="429.0" fitWidth="450.0" layoutX="81.0" layoutY="225.0" pickOnBounds="true" visible="false">
+         <image>
+            <Image url="@images.jpg" />
+         </image>
+      </ImageView>
+      <GridPane fx:id="grid" gridLinesVisible="true" layoutX="79.0" layoutY="225.0" visible="false">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="51.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="254.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="105.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="105.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="140.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="60.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="50.0" minHeight="0.0" prefHeight="47.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <Button fx:id="insert" layoutX="809.0" layoutY="487.0" mnemonicParsing="false" onAction="#insereValorNaGrid" text="insert" />
+      <ImageView fx:id="blocoCinza2" fitHeight="397.0" fitWidth="493.0" layoutX="48.0" layoutY="251.0" pickOnBounds="true" visible="false">
+         <image>
+            <Image url="@images.jpg" />
+         </image>
+      </ImageView>
+      <GridPane id="grid18" fx:id="grid2" gridLinesVisible="true" layoutX="50.0" layoutY="252.0" prefHeight="397.0" prefWidth="493.0" visible="false">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <ImageView fx:id="blocoCinza3" fitHeight="429.0" fitWidth="650.0" layoutX="8.0" layoutY="218.0" pickOnBounds="true" visible="false">
+         <image>
+            <Image url="@images.jpg" />
+         </image>
+      </ImageView>
+      <GridPane fx:id="grid3" gridLinesVisible="true" layoutX="7.0" layoutY="217.0" prefHeight="429.0" prefWidth="650.0" visible="false">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <ImageView fx:id="victory" fitHeight="645.0" fitWidth="913.0" layoutX="-4.0" layoutY="26.0" pickOnBounds="true" visible="false">
+         <image>
+            <Image url="@giphy.gif" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
